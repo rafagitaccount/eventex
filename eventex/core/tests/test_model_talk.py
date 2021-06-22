@@ -1,6 +1,6 @@
 from eventex.core.managers import PeriodManager
 from django.test import TestCase
-from eventex.core.models import Talk, Course
+from eventex.core.models import Course, Talk
 
 
 class TalkModelTest(TestCase):
@@ -39,6 +39,9 @@ class TalkModelTest(TestCase):
 
     def test_str(self):
         self.assertEqual('Título da Palestra', str(self.talk))
+
+    def test_ordering(self):
+        self.assertListEqual(['start'], Talk._meta.ordering)
 
 
 class PeriodManagerTest(TestCase):
@@ -86,3 +89,6 @@ class CourseModelTest(TestCase):
 
     def test_manager(self):
         self.assertIsInstance(Course.objects, PeriodManager)
+
+    def test_ordering(self):
+        self.assertListEqual(['start'], Course._meta.ordering)
